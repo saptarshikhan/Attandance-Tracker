@@ -8,6 +8,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(express.json())
 app.set('view engine','ejs')
+
 app.get('/',(req,res)=>{
     addCourse.find().then((data)=>{
         res.render('home',{data:data})
@@ -29,21 +30,39 @@ app.post('/add',(req,res)=>{
 })
 app.get('/mark',(req,res)=>{
     var id=req.query.id;
-    res.render('mark',{id:id})
+    var name=req.query.name;
+    res.render('mark',{id:id,name:name})
 
 })
 app.post('/marked',(req,res)=>{
     const newMark=new mark(req.body)
     .save().then((data)=>{
-        res.redirect('/')
+       res.redirect('/')
     }).catch((err)=>{
         console.log(err)
     })
 })
 app.get('/details',(req,res)=>{
     var id=req.query.id;
+    var name=req.query.name;
     mark.find({courseId:id}).then((data)=>{
-        res.render('details',{data:data})
+         var present=0,absent=0,total=0,parsent=0
+        
+        
+        
+        data.forEach((e)=>{
+            if (e.mark==true) {
+                present++;
+            }
+            else {
+                absent++;
+            }
+            total++;
+            parsent=present*100/total;
+
+        })
+        res.render('details',{data:data,p:present,a:absent,t:total,par:parsent,name:name})
+
     })
 
 })

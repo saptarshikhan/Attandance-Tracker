@@ -20,7 +20,27 @@
 </head>
 <body>
     <div class="text-center">
-        <h1 style="color: white;background-color: black;">Attandance Report</h1>
+        <h1 style="color: white;background-color: black;">Attandance Report for <%=name%></h1>
+    </div>
+    <div class="container m-4">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Present</th>
+                    <th>Absent</th>
+                    <th>Total</th>
+                    <th>Parsent</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-success">
+                    <td><%=p%> day(s)</td>
+                    <td><%=a%> day(s)</td>
+                    <td><%=t%> day(s)</td>
+                    <td><%=par%>%</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <div class="container m-5">
     <table class="table table-dark">
